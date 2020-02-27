@@ -1,4 +1,4 @@
-package com.example.templateapp.di
+package com.example.templateapp.data.di
 
 import com.example.templateapp.BuildConfig
 import okhttp3.OkHttpClient
@@ -13,7 +13,12 @@ const val TIME_OUT_SECOND = 60L
 val networkModule = module {
     single { provideHttpLoggingInterceptor() }
     single { provideOkHttpClient(get()) }
-    single { createWebService<Retrofit>(get(), "http://data.fixer.io/") }
+    single {
+        createWebService<Retrofit>(
+            get(),
+            "http://data.fixer.io/"
+        )
+    }
 }
 
 fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {

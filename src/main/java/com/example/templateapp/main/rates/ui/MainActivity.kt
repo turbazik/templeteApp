@@ -1,7 +1,8 @@
-package com.example.templateapp
+package com.example.templateapp.main.rates.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.templateapp.R
 
 class MainActivity : AppCompatActivity() {
 

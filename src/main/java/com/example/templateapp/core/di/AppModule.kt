@@ -1,4 +1,4 @@
-package com.example.templateapp.di
+package com.example.templateapp.core.di
 
 
 

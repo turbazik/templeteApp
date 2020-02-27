@@ -1,4 +1,4 @@
-package com.example.templateapp.main.rates.ui
+package com.example.templateapp.main.presentation.rates
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

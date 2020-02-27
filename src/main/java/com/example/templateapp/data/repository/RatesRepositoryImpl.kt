@@ -1,15 +1,27 @@
 package com.example.templateapp.data.repository
 
-import com.example.templateapp.core.BaseRepository
-import com.example.templateapp.main.rates.domain.RatesRepository
-import java.util.*
+import com.example.templateapp.core.datatype.Result
+import com.example.templateapp.core.datatype.ResultType
+import com.example.templateapp.data.datasource.remote.RatesRemoteDataSource
+import com.example.templateapp.data.repository.mapper.ApiToEntityMapper
+import com.example.templateapp.main.domain.repository.RatesRepository
+import com.example.templateapp.main.domain.model.RatesEntity
+
 
 class RatesRepositoryImpl(
-
-) : BaseRepository(), RatesRepository {
+    private val ratesRemoteDataSource: RatesRemoteDataSource
+) : RatesRepository {
 
     override suspend fun getRates(currency: String): Result<RatesEntity>? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val result = ratesRemoteDataSource.getRates(currency)
+        return when (result?.resultType) {
+            ResultType.SUCCESS -> {
+                Result.success(ApiToEntityMapper.map(result.data))
+            }
+            else -> {
+                Result.error(result?.error)
+            }
+        }
     }
 
 }

@@ -1,14 +1,14 @@
 package com.example.templateapp.data.datasource.remote.model.api
 
-data class RatesData(
+data class RatesRemoteData(
     var base: String?,
     var date: String?,
-    var rates: List<Rates>?,
+    var rates: List<RatesRemoteDataItem>?,
     var success: Boolean?,
     var timestamp: Int?
 )
 
-data class Rates(
+data class RatesRemoteDataItem(
     var name: String?,
     var value: Double?
 )

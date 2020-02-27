@@ -1,14 +1,14 @@
-package com.example.templateapp.main.rates.domain.model
+package com.example.templateapp.main.domain.model
 
 data class RatesEntity(
     var base: String?,
     var date: String?,
-    var rates: List<Rates>?,
+    var rates: List<RatesEntityItem>?,
     var success: Boolean?,
     var timestamp: Int?
 )
 
-data class Rates(
+data class RatesEntityItem(
     var name: String?,
     var value: Double?
 )

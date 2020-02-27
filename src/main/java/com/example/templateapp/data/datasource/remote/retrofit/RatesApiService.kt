@@ -1,9 +1,11 @@
 package com.example.templateapp.data.datasource.remote.retrofit
 
-import okhttp3.RequestBody
-import retrofit2.Response
-import retrofit2.http.Body
+import com.example.templateapp.data.datasource.remote.model.response.RatesResponse
 import retrofit2.http.GET
 
 interface RatesApiService {
+    @GET("beers?")
+    suspend fun getRates(
+        currency: String
+    ): RatesResponse?
 }

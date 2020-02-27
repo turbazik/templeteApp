@@ -1,4 +1,4 @@
-package com.example.templateapp.data.datasource.remote.exceptions
+package com.example.templateapp.core.exceptions
 
 import retrofit2.HttpException
 import java.io.IOException

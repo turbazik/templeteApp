@@ -1,8 +1,8 @@
 package com.example.templateapp.data.datasource.remote.mapper
 
 import com.example.templateapp.core.BaseMapper
+import com.example.templateapp.data.datasource.remote.model.api.Rates
 import com.example.templateapp.data.datasource.remote.model.api.RatesRemoteData
-import com.example.templateapp.data.datasource.remote.model.api.RatesRemoteDataItem
 import com.example.templateapp.data.datasource.remote.model.response.RatesResponse
 
 
@@ -14,11 +14,12 @@ object ResponseToApiMapper : BaseMapper<RatesResponse, RatesRemoteData> {
             date = type?.date,
             timestamp = type?.timestamp,
             rates = type?.rates?.map {
-                RatesRemoteDataItem(
+                Rates(
                     name = it.key,
                     value = it.value
                 )
-            } ?: listOf()
+            } ?: listOf(),
+            error = type?.error
         )
     }
 }

@@ -1,9 +1,9 @@
 package com.example.templateapp.data.repository.mapper
 
 import com.example.templateapp.core.BaseMapper
+import com.example.templateapp.data.datasource.remote.model.api.Rates
 import com.example.templateapp.data.datasource.remote.model.api.RatesRemoteData
 import com.example.templateapp.main.rates.domain.model.RatesEntity
-import com.example.templateapp.main.rates.domain.model.RatesEntityItem
 
 object ApiToEntityMapper : BaseMapper<RatesRemoteData, RatesEntity> {
     override fun map(type: RatesRemoteData?): RatesEntity {
@@ -13,12 +13,13 @@ object ApiToEntityMapper : BaseMapper<RatesRemoteData, RatesEntity> {
             date = type?.date,
             timestamp = type?.timestamp,
             rates = type?.rates?.map {
-                RatesEntityItem(
+                Rates(
                     name = it.name,
                     value = it.value
                 )
             }
-                ?: listOf()
+                ?: listOf(),
+            error = type?.error
         )
     }
 }

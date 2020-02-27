@@ -1,4 +1,4 @@
-package com.example.templateapp.data.datasource.remote.model
+package com.example.templateapp.core.datatype
 
 open class BaseResponse<T : Any> {
     var success: Boolean? = null

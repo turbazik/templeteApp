@@ -1,4 +1,4 @@
-package com.example.templateapp.data.datasource.remote.model
+package com.example.templateapp.core.datatype
 
 sealed class Result<out T: Any> {
     data class Success<out T : Any>(val data: T) : Result<T>()

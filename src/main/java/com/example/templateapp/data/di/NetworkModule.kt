@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val TIME_OUT_SECOND = 60L
+private const val URL_BASE = "http://data.fixer.io/"
 
 val networkModule = module {
     single { provideHttpLoggingInterceptor() }
@@ -16,7 +17,7 @@ val networkModule = module {
     single {
         createWebService<Retrofit>(
             get(),
-            "http://data.fixer.io/"
+            URL_BASE
         )
     }
 }

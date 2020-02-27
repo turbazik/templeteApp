@@ -1,7 +1,8 @@
 package com.example.templateapp
 
 import android.app.Application
-import com.example.templateapp.data.di.networkModule
+import com.example.templateapp.data.di.ratesApiModule
+import com.example.templateapp.data.di.retrofitModule
 import com.example.templateapp.main.di.mainViewModelModule
 import com.example.templateapp.main.di.ratesModule
 import org.koin.android.ext.koin.androidContext
@@ -22,8 +23,8 @@ class BaseProjectApplication : Application() {
             modules(
                 listOf(
                     ratesModule,
-                    mainViewModelModule,
-                    networkModule
+                    retrofitModule,
+                    ratesApiModule
                 )
             )
         }

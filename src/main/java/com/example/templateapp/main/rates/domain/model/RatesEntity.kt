@@ -1,4 +1,4 @@
-package com.example.templateapp.main.domain.model
+package com.example.templateapp.main.rates.domain.model
 
 data class RatesEntity(
     var base: String?,

@@ -1,8 +1,8 @@
-package com.example.templateapp.main.domain.usecase
+package com.example.templateapp.main.rates.domain.usecase
 
 import com.example.templateapp.core.datatype.Result
-import com.example.templateapp.main.domain.repository.RatesRepository
-import com.example.templateapp.main.domain.model.RatesEntity
+import com.example.templateapp.main.rates.domain.repository.RatesRepository
+import com.example.templateapp.main.rates.domain.model.RatesEntity
 
 class GetRatesUseCase(
     private val ratesRepository: RatesRepository

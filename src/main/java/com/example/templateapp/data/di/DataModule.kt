@@ -1,6 +1,11 @@
 package com.example.templateapp.data.di
 
 import com.example.templateapp.BuildConfig
+import com.example.templateapp.data.datasource.remote.RatesRemoteDataSource
+import com.example.templateapp.data.datasource.remote.RatesRemoteDataSourceImpl
+import com.example.templateapp.data.datasource.remote.retrofit.RatesApiService
+import com.example.templateapp.data.repository.RatesRepositoryImpl
+import com.example.templateapp.main.rates.domain.repository.RatesRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -11,16 +16,36 @@ import java.util.concurrent.TimeUnit
 const val TIME_OUT_SECOND = 60L
 private const val URL_BASE = "http://data.fixer.io/"
 
-val networkModule = module {
+
+val retrofitModule = module {
     single { provideHttpLoggingInterceptor() }
     single { provideOkHttpClient(get()) }
+    single { provideRetrofitInstance(get()) }
+}
+
+val ratesApiModule = module {
+    factory { provideBeersApiService(retrofit = get()) }
+    factory {
+        RatesRemoteDataSourceImpl(
+            ratesApiService = get()
+        ) as RatesRemoteDataSource
+    }
     single {
-        createWebService<Retrofit>(
-            get(),
-            URL_BASE
-        )
+        RatesRepositoryImpl(
+            ratesRemoteDataSource = get()
+        ) as RatesRepository
     }
 }
+
+private fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    .baseUrl(URL_BASE)
+    .client(okHttpClient)
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+
+private fun provideBeersApiService(retrofit: Retrofit): RatesApiService =
+    retrofit.create(RatesApiService::class.java)
 
 fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
@@ -40,11 +65,4 @@ fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
     return interceptor
 }
 
-inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String): T {
-    val retrofit = Retrofit.Builder()
-        .baseUrl(url)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    return retrofit.create(T::class.java)
-}
+

@@ -1,4 +1,4 @@
-package com.example.templateapp.core.exceptions
+package com.example.templateapp.data.datasource.remote.exceptions
 
 import retrofit2.HttpException
 import java.io.IOException
@@ -9,7 +9,9 @@ fun handleNetworkExceptions(ex: Exception): Exception {
     return when (ex) {
         is IOException -> NetworkConnectionException()
         is UnknownHostException -> NetworkConnectionException()
-        is HttpException -> apiErrorFromCodeException(ex.code())
+        is HttpException -> apiErrorFromCodeException(
+            ex.code()
+        )
         else -> GenericNetworkException()
     }
 }

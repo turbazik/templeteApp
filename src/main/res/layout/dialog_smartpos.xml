@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxWidth="312dp"
+    android:minWidth="312dp"
+    android:paddingLeft="24dp"
+    android:paddingTop="36dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="20dp"
+    android:theme="@style/AppTheme">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Headline4Style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Не удалось распечатать чек" />
+
+    <TextView
+        android:id="@+id/content"
+        style="@style/PosHeadline5Style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:paddingTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Замените чековую ленту распечатайте чек из Истории." />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/okBtn"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton.White.Pos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/ok"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelBtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Pos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/okBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorAccent">#D81B60</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="kaspi_black_grey">#333333</color>
+    <color name="kaspi_background_white">#f2f2f2</color>
+    <color name="kaspi_grey_500">#9e9e9e</color>
+    <color name="kaspi_red">#f14635</color>
+    <color name="kaspi_white">#ffffff</color>
+    <color name="kaspi_white_greyish">#dbdbdb</color>
+
+    <color name="black00">#000000</color>
+    <color name="black12">#99000000</color>
+    <color name="black1e">#1e000000</color>
+    <color name="black33">#33000000</color>
+    <color name="cerulean">#0089d0</color>
+    <color name="green">#58a000</color>
+    <color name="grey">#a8a8a8</color>
+    <color name="greyish_brown">#4a4a4a</color>
+    <color name="tomato">#f14536</color>
+    <color name="transparent">#0effffff</color>
+    <color name="white">#ffffff</color>
+    <color name="white_smoke">#f0f0f0</color>
+
+
+    <color name="colorForeground">@color/white</color>
+    <color name="windowBackground">@color/kaspi_background_white</color>
+
+    <color name="textColorHint">@color/kaspi_grey_500</color>
+    <color name="textColorPrimary">@color/kaspi_black_grey</color>
+    <color name="textColorPrimaryInverse">@color/kaspi_white</color>
+
+    <!-- QR Scanner -->
+    <color name="viewfinder_border">@color/tomato</color>
 </resources>

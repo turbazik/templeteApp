@@ -62,7 +62,7 @@ abstract class BaseViewModel : ViewModel() {
                         }
                     }
                 }
-                is Result.Error -> {
+                is com.example.templateapp.core.datatype.Result.Error -> {
                     val title: String
                     val content: String
 

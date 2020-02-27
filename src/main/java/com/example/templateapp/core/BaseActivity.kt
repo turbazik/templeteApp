@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import com.example.templateapp.util.widgets.loader.SRProgressDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kz.kaspibusiness.smartpos.ui.components.kaspiloader.SRProgressDialog
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -18,12 +18,11 @@ import kotlin.coroutines.CoroutineContext
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity(), CoroutineScope {
 
-    val tag: String = this.javaClass.simpleName
+    private val tag: String = this.javaClass.simpleName
 
     private lateinit var job: Job
 
     var isRunning: Boolean = false
-        private set
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
@@ -64,7 +63,7 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope {
     }
 
 
-    fun navigate(@IdRes navViewId: Int, action: NavDirections, navOptions: NavOptions?=null) {
+    fun navigate(@IdRes navViewId: Int, action: NavDirections, navOptions: NavOptions? = null) {
         timberLog("navigate")
         try {
 
@@ -75,22 +74,13 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope {
             )
 
             val navController = Navigation.findNavController(this, navViewId)
-            navController.navigate(action,navOptions)
+            navController.navigate(action, navOptions)
         } catch (e: Exception) {
             Timber.tag(tag).e(e)
         }
     }
 
     private var loadingDialog: SRProgressDialog? = null
-
-    override fun onBackPressed() {
-        val backStackCount = supportFragmentManager.backStackEntryCount
-        val fragment = supportFragmentManager.findFragmentById(R.id.activityNavigation)
-        if (backStackCount > 0)
-            (fragment as? BackPressable)?.onBackPressed()
-        else
-            super.onBackPressed()
-    }
 
     fun showLoadingLayout() {
         if (loadingDialog == null) {
@@ -106,7 +96,7 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope {
         loadingDialog?.dismiss()
     }
 
-    fun timberLog(message: String?) {
+    private fun timberLog(message: String?) {
         Timber.tag(tag).d(message)
     }
 }

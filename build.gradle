@@ -56,4 +56,11 @@ dependencies {
 
     //Utils
     implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "com.afollestad.material-dialogs:core:3.1.1"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-sdk25:0.10.8"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:0.10.8"
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:0.10.8"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.8"
 }

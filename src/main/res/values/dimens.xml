@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="design_bottom_navigation_height" tools:override="true">72dp</dimen>
+
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_73">73dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_24">24sp</dimen>
+</resources>

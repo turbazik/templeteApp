@@ -21,8 +21,7 @@ object ResponseToApiMapper :
                     name = it.key,
                     value = it.value
                 )
-            } ?: listOf(),
-            error = type?.data?.error
+            } ?: listOf()
         )
         return response
     }

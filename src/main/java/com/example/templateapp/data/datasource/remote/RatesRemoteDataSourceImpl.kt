@@ -12,7 +12,7 @@ class RatesRemoteDataSourceImpl(
 
     override suspend fun getRates(currency: String): Result<BaseResponse<RatesRemoteData>> {
         return try {
-            val result = ratesApiService.getRates(currency)
+            val result = ratesApiService.getRates()
             Result.success(ResponseToApiMapper.map(result))
         } catch (ex: Exception) {
             Result.error(ex)

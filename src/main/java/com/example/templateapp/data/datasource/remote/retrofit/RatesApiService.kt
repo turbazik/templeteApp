@@ -5,8 +5,7 @@ import com.example.templateapp.data.datasource.remote.model.response.RatesRespon
 import retrofit2.http.GET
 
 interface RatesApiService {
-    @GET("beers?")
+    @GET("api/latest?access_key=20378b33bf2657b460d5375e63c1c5fc&format=1")
     suspend fun getRates(
-        currency: String
     ): BaseResponse<RatesResponse>
 }

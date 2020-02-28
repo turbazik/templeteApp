@@ -1,29 +1,36 @@
 package com.example.templateapp
 
 import android.app.Application
+import com.example.templateapp.core.di.appModule
 import com.example.templateapp.data.di.ratesApiModule
 import com.example.templateapp.data.di.retrofitModule
 import com.example.templateapp.main.di.ratesModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import timber.log.Timber
 
 
-class BaseProjectApplication : Application() {
+class TemplateAppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         initKoin()
     }
 
     private fun initKoin() {
         startKoin {
-            androidContext(this@BaseProjectApplication)
+            androidLogger()
+            androidContext(this@TemplateAppApplication)
             modules(
                 listOf(
                     ratesModule,
                     retrofitModule,
-                    ratesApiModule
+                    ratesApiModule,
+                    appModule
                 )
             )
         }

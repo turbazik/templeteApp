@@ -25,7 +25,7 @@ val retrofitModule = module {
 
 val ratesApiModule = module {
     factory { provideBeersApiService(retrofit = get()) }
-    factory {
+    single {
         RatesRemoteDataSourceImpl(
             ratesApiService = get()
         ) as RatesRemoteDataSource

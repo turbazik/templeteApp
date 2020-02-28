@@ -8,6 +8,7 @@
     android:minWidth="312dp"
     android:paddingLeft="24dp"
     android:paddingTop="36dp"
+    android:background="@color/white"
     android:paddingRight="24dp"
     android:paddingBottom="20dp"
     android:theme="@style/AppTheme">

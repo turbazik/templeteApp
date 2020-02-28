@@ -19,8 +19,7 @@ object ApiToEntityMapper : BaseMapper<BaseResponse<RatesRemoteData>, BaseRespons
                     name = it.name,
                     value = it.value
                 )
-            } ?: listOf(),
-            error = type?.data?.error
+            } ?: listOf()
         )
         return response
     }

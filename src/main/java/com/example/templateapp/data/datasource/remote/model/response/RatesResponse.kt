@@ -11,7 +11,5 @@ open class RatesResponse(
     @SerializedName("rates")
     var rates: LinkedHashMap<String, Double>?,
     @SerializedName("timestamp")
-    var timestamp: Int?,
-    @SerializedName("error")
-    var error: ErrorResponse?
+    var timestamp: Int?
 )

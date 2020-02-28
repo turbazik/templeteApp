@@ -1,5 +1,6 @@
 package com.example.templateapp.data.datasource.remote
 
+import com.example.templateapp.core.BaseResponse
 import com.example.templateapp.core.datatype.Result
 import com.example.templateapp.data.datasource.remote.mapper.ResponseToApiMapper
 import com.example.templateapp.data.datasource.remote.model.api.RatesRemoteData
@@ -9,7 +10,7 @@ class RatesRemoteDataSourceImpl(
     private val ratesApiService: RatesApiService
 ) : RatesRemoteDataSource {
 
-    override suspend fun getRates(currency: String): Result<RatesRemoteData> {
+    override suspend fun getRates(currency: String): Result<BaseResponse<RatesRemoteData>> {
         return try {
             val result = ratesApiService.getRates(currency)
             Result.success(ResponseToApiMapper.map(result))

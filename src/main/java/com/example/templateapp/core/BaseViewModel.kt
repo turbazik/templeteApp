@@ -18,8 +18,8 @@ abstract class BaseViewModel : ViewModel() {
 
 
     fun <T : Any> apiCall(
-        call: suspend () -> com.example.templateapp.core.datatype.Result<RatesEntity>,
-        success: ((RatesEntity) -> Unit)? = null,
+        call: suspend () -> com.example.templateapp.core.datatype.Result<BaseResponse<T>>,
+        success: ((T) -> Unit)? = null,
         successVoid: (() -> Unit)? = null,
         error: ((String, String?) -> Unit)? = null,
         loading: (() -> Unit)? = null,
@@ -31,8 +31,8 @@ abstract class BaseViewModel : ViewModel() {
             val result = call.invoke()
             if (result.resultType == ResultType.SUCCESS) {
                 if (result.data?.success!!) {
-                    if (result.data.rates != null) {
-                        success?.invoke(result.data)
+                    if (result.data.data != null) {
+                        success?.invoke(result.data.data!!)
                     } else {
                         if (success != null) {
                             val message = "Неверный ответ сервера"
@@ -49,7 +49,7 @@ abstract class BaseViewModel : ViewModel() {
                         }
                     }
                 } else {
-                    val message = result.data.error?.info ?: "unknown error"
+                    val message = result.data.data.info ?: "unknown error"
                     if (handleErrorOutside) {
                         error?.invoke(message, null)
                     } else {

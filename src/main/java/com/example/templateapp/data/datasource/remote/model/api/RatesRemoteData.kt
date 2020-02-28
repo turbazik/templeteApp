@@ -6,7 +6,6 @@ data class RatesRemoteData(
     var base: String?,
     var date: String?,
     var rates: List<Rates>?,
-    var success: Boolean?,
     var timestamp: Int?,
     var error: ErrorResponse?
 

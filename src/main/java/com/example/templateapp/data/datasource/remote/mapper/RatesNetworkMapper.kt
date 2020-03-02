@@ -12,10 +12,9 @@ object ResponseToApiMapper :
     override fun map(type: BaseResponse<RatesResponse>?): BaseResponse<RatesRemoteData> {
         val response = BaseResponse<RatesRemoteData>()
         response.success = type?.success
+        response.error = type?.error
         response.data = RatesRemoteData(
             base = type?.data?.base,
-            date = type?.data?.date,
-            timestamp = type?.data?.timestamp,
             rates = type?.data?.rates?.map {
                 Rates(
                     name = it.key,

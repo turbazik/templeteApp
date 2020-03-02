@@ -6,15 +6,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.templateapp.core.datatype.ResultType
 import com.example.templateapp.data.datasource.remote.exceptions.NetworkConnectionException
 import com.example.templateapp.util.Event
-import com.example.templateapp.util.widgets.dialog.type.PosDialog
+import com.example.templateapp.util.widgets.dialog.type.CustomDialog
 import com.example.templateapp.core.datatype.Result
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 abstract class BaseViewModel : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
-    val showDialog = MutableLiveData<Event<PosDialog>>()
+    val showDialog = MutableLiveData<Event<CustomDialog>>()
 
     fun <T : Any> apiCall(
         call: suspend () -> Result<BaseResponse<T>>,
@@ -37,7 +38,7 @@ abstract class BaseViewModel : ViewModel() {
                             val message = "Неверный ответ сервера"
 
                             showDialog.value = Event(
-                                PosDialog()
+                                CustomDialog()
                                     .title("Ошибка")
                                     .content(message)
                             )
@@ -48,12 +49,12 @@ abstract class BaseViewModel : ViewModel() {
                         }
                     }
                 } else {
-                    val message = result.error?.message ?: "unknown error"
+                    val message = result.data.error?.info ?: "unknown error"
                     if (handleErrorOutside) {
                         error?.invoke(message, null)
                     } else {
                         showDialog.value = Event(
-                            PosDialog()
+                            CustomDialog()
                                 .title(message)
                         )
                     }
@@ -77,7 +78,7 @@ abstract class BaseViewModel : ViewModel() {
                     error?.invoke(title, content)
                 } else {
                     showDialog.value = Event(
-                        PosDialog()
+                        CustomDialog()
                             .title(title)
                             .content(content)
                     )

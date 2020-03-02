@@ -10,16 +10,10 @@ object ApiToEntityMapper : BaseMapper<BaseResponse<RatesRemoteData>, BaseRespons
     override fun map(type: BaseResponse<RatesRemoteData>?): BaseResponse<RatesEntity> {
         val response = BaseResponse<RatesEntity>()
         response.success = type?.success
+        response.error = type?.error
         response.data = RatesEntity(
             base = type?.data?.base,
-            date = type?.data?.date,
-            timestamp = type?.data?.timestamp,
-            rates = type?.data?.rates?.map {
-                Rates(
-                    name = it.name,
-                    value = it.value
-                )
-            } ?: listOf()
+            rates = type?.data?.rates
         )
         return response
     }

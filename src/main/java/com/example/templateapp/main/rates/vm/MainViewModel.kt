@@ -15,7 +15,7 @@ class MainViewModel(
             },
             success = {
                 for (i in it.rates!!) {
-                    Timber.d(i.name)
+                    Timber.d(i.name + " = " + i.value)
                 }
             },
             loading = {

@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.dialog_smartpos.*
 import kz.kaspibusiness.smartpos.ui.components.dialog.BaseDialog
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class PosDialog : BaseDialog() {
+class CustomDialog : BaseDialog() {
 
     private var onOkClick: (() -> Unit)? = null
     private var onCancelClick: (() -> Unit)? = null
@@ -25,42 +25,42 @@ class PosDialog : BaseDialog() {
         setType(DialogManager.TYPE_POS)
     }
 
-    fun okClick(onOkClick: () -> Unit): PosDialog {
+    fun okClick(onOkClick: () -> Unit): CustomDialog {
         this.onOkClick = onOkClick
         return this
     }
 
-    fun cancelClick(onCancelClick: () -> Unit): PosDialog {
+    fun cancelClick(onCancelClick: () -> Unit): CustomDialog {
         this.onCancelClick = onCancelClick
         return this
     }
 
-    fun cancelOnTouchOutside(cancelable: Boolean): PosDialog {
+    fun cancelOnTouchOutside(cancelable: Boolean): CustomDialog {
         this.cancelable = cancelable
         return this
     }
 
-    fun showCancel(): PosDialog {
+    fun showCancel(): CustomDialog {
         this.showCancel = true
         return this
     }
 
-    fun title(titleText: String): PosDialog {
+    fun title(titleText: String): CustomDialog {
         this.titleText = titleText
         return this
     }
 
-    fun content(contentText: String?): PosDialog {
+    fun content(contentText: String?): CustomDialog {
         this.contentText = contentText
         return this
     }
 
-    fun okText(text: String): PosDialog {
+    fun okText(text: String): CustomDialog {
         this.ok = text
         return this
     }
 
-    fun cancelText(text: String): PosDialog {
+    fun cancelText(text: String): CustomDialog {
         this.cancel = text
         return this
     }

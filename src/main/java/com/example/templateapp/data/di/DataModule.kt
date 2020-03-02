@@ -1,5 +1,6 @@
 package com.example.templateapp.data.di
 
+import androidx.room.Room
 import com.example.templateapp.BuildConfig
 import com.example.templateapp.data.datasource.remote.RatesRemoteDataSource
 import com.example.templateapp.data.datasource.remote.RatesRemoteDataSourceImpl
@@ -8,6 +9,7 @@ import com.example.templateapp.data.repository.RatesRepositoryImpl
 import com.example.templateapp.main.rates.domain.repository.RatesRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,17 +26,9 @@ val retrofitModule = module {
 }
 
 val ratesApiModule = module {
-    factory { provideBeersApiService(retrofit = get()) }
-    single {
-        RatesRemoteDataSourceImpl(
-            ratesApiService = get()
-        ) as RatesRemoteDataSource
-    }
-    single {
-        RatesRepositoryImpl(
-            ratesRemoteDataSource = get()
-        ) as RatesRepository
-    }
+    single { provideBeersApiService(retrofit = get()) }
+    single<RatesRemoteDataSource> { RatesRemoteDataSourceImpl(ratesApiService = get()) }
+    single<RatesRepository> { RatesRepositoryImpl(ratesRemoteDataSource = get()) }
 }
 
 private fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
@@ -63,6 +57,20 @@ fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
     else
         HttpLoggingInterceptor.Level.NONE
     return interceptor
+}
+
+val roomModule = module {
+    single {
+        Room.databaseBuilder(get(), RatesDatabase::class.java, "rates-db")
+            .build()
+    }
+    single { get<RatesDatabase>().ratesDao() }
+}
+
+val ratesDataModule = module {
+    single { provideBeersApiService(retrofit = get()) }
+    single<RatesRemoteDataSource> { RatesRemoteDataSourceImpl(ratesApiService = get()) }
+    single<RatesRepository> { RatesRepositoryImpl(ratesRemoteDataSource = get()) }
 }
 
 

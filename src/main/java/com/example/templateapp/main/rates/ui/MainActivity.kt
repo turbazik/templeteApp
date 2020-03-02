@@ -21,11 +21,6 @@ class MainActivity : BaseActivity() {
 
     private val dialogManager: DialogManager by inject { parametersOf(this as BaseActivity) }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchRates("", 0.0)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,8 +29,10 @@ class MainActivity : BaseActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        viewModel.loading.observe(this, Observer {
-            if (it != null && it) {
+        viewModel.fetchRates("", 0.0)
+
+        viewModel.loading.observe(this, Observer { isLoading ->
+            if (isLoading != null && isLoading) {
                 showLoadingLayout()
             } else {
                 hideLoadingLayout()
@@ -43,9 +40,9 @@ class MainActivity : BaseActivity() {
         })
 
         viewModel.showDialog.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let { posDialog ->
-                if (posDialog.titleText != "InvalidMac") {
-                    dialogManager.showDialog(posDialog)
+            event.getContentIfNotHandled()?.let { dialog ->
+                if (dialog.titleText != "InvalidMac") {
+                    dialogManager.showDialog(dialog)
                 }
             }
         })

@@ -4,6 +4,7 @@ import com.example.templateapp.core.BaseResponse
 import com.example.templateapp.core.datatype.Result
 import com.example.templateapp.data.datasource.remote.mapper.ResponseToApiMapper
 import com.example.templateapp.data.datasource.remote.model.api.RatesRemoteData
+import com.example.templateapp.data.datasource.remote.model.response.RatesResponse
 import com.example.templateapp.data.datasource.remote.retrofit.RatesApiService
 
 class RatesRemoteDataSourceImpl(
@@ -13,6 +14,9 @@ class RatesRemoteDataSourceImpl(
     override suspend fun getRates(currency: String): Result<BaseResponse<RatesRemoteData>> {
         return try {
             val result = ratesApiService.getRates()
+            result.data = RatesResponse(base = null, date = null, rates = null, timestamp = null)
+            result.data!!.rates = result.rates
+            result.data!!.base = result.base
             Result.success(ResponseToApiMapper.map(result))
         } catch (ex: Exception) {
             Result.error(ex)

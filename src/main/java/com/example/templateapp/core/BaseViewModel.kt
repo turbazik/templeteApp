@@ -85,9 +85,8 @@ abstract class BaseViewModel : ViewModel() {
 
                 Timber.tag(getTag()).d(result.error)
             }
+            onComplete?.invoke()
         }
-
-        onComplete?.invoke()
     }
 
 

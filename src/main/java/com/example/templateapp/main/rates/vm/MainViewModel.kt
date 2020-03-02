@@ -17,7 +17,6 @@ class MainViewModel(
                 for (i in it.rates!!) {
                     Timber.d(i.name)
                 }
-
             },
             loading = {
                 loading.value = true
@@ -25,6 +24,7 @@ class MainViewModel(
             onComplete = {
                 loading.value = false
             }
+
         )
 
     }

@@ -15,6 +15,8 @@ import androidx.core.view.ViewCompat;
 
 import com.example.templateapp.R;
 
+import java.util.Objects;
+
 public class SRProgressDialog extends AlertDialog {
 
     // Default background for the progress spinner
@@ -23,9 +25,6 @@ public class SRProgressDialog extends AlertDialog {
     private Context mContext;
     private CircleImageView mCircleView;
     private MaterialProgressDrawable mProgress;
-    private int mMediumAnimationDuration = 50;
-    private boolean mHasStarted;
-    private Animation mScaleAnimation;
     private Animation.AnimationListener mListener = new Animation.AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
@@ -44,7 +43,7 @@ public class SRProgressDialog extends AlertDialog {
     };
 
 
-    public SRProgressDialog(Context context) {
+    private SRProgressDialog(Context context) {
         super(context);
         init(context);
     }
@@ -71,11 +70,11 @@ public class SRProgressDialog extends AlertDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.sr_alert_dialog_layout, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.sr_alert_dialog_layout, null);
         ViewGroup parent = view.findViewById(R.id.sr_container);
         createProgressView(parent);
 
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     }
 
     private void createProgressView(ViewGroup parent) {
@@ -91,26 +90,25 @@ public class SRProgressDialog extends AlertDialog {
     public void onStart() {
         super.onStart();
         startScaleUpAnimation(mListener);
-        mHasStarted = true;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mProgress.stop();
-        mHasStarted = false;
     }
 
     @SuppressLint("NewApi")
     private void startScaleUpAnimation(Animation.AnimationListener listener) {
         mCircleView.setVisibility(View.VISIBLE);
         mProgress.setAlpha(MAX_ALPHA);
-        mScaleAnimation = new Animation() {
+        Animation mScaleAnimation = new Animation() {
             @Override
             public void applyTransformation(float interpolatedTime, Transformation t) {
                 setAnimationProgress(interpolatedTime);
             }
         };
+        int mMediumAnimationDuration = 50;
         mScaleAnimation.setDuration(mMediumAnimationDuration);
         if (listener != null) {
             mCircleView.setAnimationListener(listener);

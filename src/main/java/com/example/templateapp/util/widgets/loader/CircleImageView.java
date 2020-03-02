@@ -1,5 +1,6 @@
 package com.example.templateapp.util.widgets.loader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import androidx.core.view.ViewCompat;
  * Created by coderzlab on 23/6/17.
  */
 
+@SuppressLint("ViewConstructor")
 class CircleImageView extends AppCompatImageView {
 
     private static final int KEY_SHADOW_COLOR = 0x1E000000;

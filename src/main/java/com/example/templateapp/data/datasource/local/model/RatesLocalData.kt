@@ -11,7 +11,7 @@ const val TABLE_NAME = "rates"
 @TypeConverters(RatesConverter::class)
 data class RatesLocalData(
     @PrimaryKey
-    var base: String?,
+    var base: String,
     var rates: List<RatesLocal>?
 
 )

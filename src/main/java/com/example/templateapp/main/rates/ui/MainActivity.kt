@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        viewModel.fetchRates("", 100.0)
+        viewModel.fetchRates("EUR", 100.0)
 
         viewModel.loading.observe(this, Observer { isLoading ->
             if (isLoading != null && isLoading) {

@@ -2,6 +2,9 @@ package com.example.templateapp.data.di
 
 import androidx.room.Room
 import com.example.templateapp.BuildConfig
+import com.example.templateapp.data.datasource.local.RatesLocalDataSource
+import com.example.templateapp.data.datasource.local.RatesLocalDataSourceImpl
+import com.example.templateapp.data.datasource.local.db.RatesDatabase
 import com.example.templateapp.data.datasource.remote.RatesRemoteDataSource
 import com.example.templateapp.data.datasource.remote.RatesRemoteDataSourceImpl
 import com.example.templateapp.data.datasource.remote.retrofit.RatesApiService
@@ -9,7 +12,6 @@ import com.example.templateapp.data.repository.RatesRepositoryImpl
 import com.example.templateapp.main.rates.domain.repository.RatesRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,11 +27,23 @@ val retrofitModule = module {
     single { provideRetrofitInstance(get()) }
 }
 
-val ratesApiModule = module {
+val ratesDataModule = module {
     single { provideBeersApiService(retrofit = get()) }
     single<RatesRemoteDataSource> { RatesRemoteDataSourceImpl(ratesApiService = get()) }
-    single<RatesRepository> { RatesRepositoryImpl(ratesRemoteDataSource = get()) }
+    single {
+        Room.databaseBuilder(get(), RatesDatabase::class.java, "rates-db")
+            .build()
+    }
+    single { get<RatesDatabase>().ratesDao() }
+    single<RatesLocalDataSource> { RatesLocalDataSourceImpl(ratesDao = get()) }
+    single<RatesRepository> {
+        RatesRepositoryImpl(
+            ratesRemoteDataSource = get(),
+            ratesLocalDataSource = get()
+        )
+    }
 }
+
 
 private fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .baseUrl(URL_BASE)
@@ -58,19 +72,3 @@ fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         HttpLoggingInterceptor.Level.NONE
     return interceptor
 }
-
-val roomModule = module {
-    single {
-        Room.databaseBuilder(get(), RatesDatabase::class.java, "rates-db")
-            .build()
-    }
-    single { get<RatesDatabase>().ratesDao() }
-}
-
-val ratesDataModule = module {
-    single { provideBeersApiService(retrofit = get()) }
-    single<RatesRemoteDataSource> { RatesRemoteDataSourceImpl(ratesApiService = get()) }
-    single<RatesRepository> { RatesRepositoryImpl(ratesRemoteDataSource = get()) }
-}
-
-

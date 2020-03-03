@@ -19,10 +19,10 @@ class MainViewModel(
                 }
             },
             loading = {
-                loading.value = true
+                loading.postValue(true)
             },
             onComplete = {
-                loading.value = false
+                loading.postValue(false)
             }
 
         )

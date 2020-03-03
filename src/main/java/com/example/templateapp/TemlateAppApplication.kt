@@ -2,7 +2,7 @@ package com.example.templateapp
 
 import android.app.Application
 import com.example.templateapp.core.di.appModule
-import com.example.templateapp.data.di.ratesApiModule
+import com.example.templateapp.data.di.ratesDataModule
 import com.example.templateapp.data.di.retrofitModule
 import com.example.templateapp.main.di.ratesModule
 import org.koin.android.ext.koin.androidContext
@@ -27,9 +27,9 @@ class TemplateAppApplication : Application() {
             androidContext(this@TemplateAppApplication)
             modules(
                 listOf(
-                    ratesModule,
                     retrofitModule,
-                    ratesApiModule,
+                    ratesModule,
+                    ratesDataModule,
                     appModule
                 )
             )

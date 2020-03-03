@@ -8,6 +8,7 @@ import com.example.templateapp.data.datasource.remote.exceptions.NetworkConnecti
 import com.example.templateapp.util.Event
 import com.example.templateapp.util.widgets.dialog.type.CustomDialog
 import com.example.templateapp.core.datatype.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -26,7 +27,7 @@ abstract class BaseViewModel : ViewModel() {
         onComplete: (() -> Unit)? = null,
         handleErrorOutside: Boolean = false
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             loading?.invoke()
             val result = call.invoke()
             if (result.resultType == ResultType.SUCCESS) {
@@ -37,10 +38,12 @@ abstract class BaseViewModel : ViewModel() {
                         if (success != null) {
                             val message = "Неверный ответ сервера"
 
-                            showDialog.value = Event(
-                                CustomDialog()
-                                    .title("Ошибка")
-                                    .content(message)
+                            showDialog.postValue(
+                                Event(
+                                    CustomDialog()
+                                        .title("Ошибка")
+                                        .content(message)
+                                )
                             )
 
                             timberLog(message)
@@ -53,9 +56,11 @@ abstract class BaseViewModel : ViewModel() {
                     if (handleErrorOutside) {
                         error?.invoke(message, null)
                     } else {
-                        showDialog.value = Event(
-                            CustomDialog()
-                                .title(message)
+                        showDialog.postValue(
+                            Event(
+                                CustomDialog()
+                                    .title(message)
+                            )
                         )
                     }
 
@@ -77,10 +82,12 @@ abstract class BaseViewModel : ViewModel() {
                 if (handleErrorOutside) {
                     error?.invoke(title, content)
                 } else {
-                    showDialog.value = Event(
-                        CustomDialog()
-                            .title(title)
-                            .content(content)
+                    showDialog.postValue(
+                        Event(
+                            CustomDialog()
+                                .title(title)
+                                .content(content)
+                        )
                     )
                 }
 

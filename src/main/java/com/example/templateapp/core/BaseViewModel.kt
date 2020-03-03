@@ -8,6 +8,7 @@ import com.example.templateapp.data.datasource.remote.exceptions.NetworkConnecti
 import com.example.templateapp.util.Event
 import com.example.templateapp.util.widgets.dialog.type.CustomDialog
 import com.example.templateapp.core.datatype.Result
+import com.example.templateapp.data.datasource.remote.exceptions.GenericNetworkException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -68,16 +69,9 @@ abstract class BaseViewModel : ViewModel() {
                 }
 
             } else {
-                val title: String
-                val content: String
-
-                if (result.error is NetworkConnectionException) {
-                    title = "Интернет недоступен"
-                    content = "Проверьте соединение и\nповторите попытку"
-                } else {
-                    title = "Сервис временно\nнедоступен"
-                    content = "Попробуйте позже"
-                }
+                val resultError = result.error
+                val title = resultError?.message ?: ""
+                val content = resultError?.cause?.message
 
                 if (handleErrorOutside) {
                     error?.invoke(title, content)

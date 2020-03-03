@@ -1,22 +1,33 @@
 package com.example.templateapp.main.rates.vm
 
+import androidx.lifecycle.MutableLiveData
 import com.example.templateapp.core.BaseViewModel
 import com.example.templateapp.main.rates.domain.usecase.GetRatesUseCase
-import timber.log.Timber
+import com.example.templateapp.main.rates.vm.mapper.RatesEntityToUiMapper
+import com.example.templateapp.main.rates.vm.model.RatesUi
+import com.example.templateapp.util.Event
 
 class MainViewModel(
     private val getRatesUseCase: GetRatesUseCase
 ) : BaseViewModel() {
+
+    val ratesMutableLiveData = MutableLiveData<Event<RatesUi>>()
+    val text = MutableLiveData<String>()
+    var initialized = false
 
     fun fetchRates(currency: String, amount: Double) {
         apiCall(
             {
                 getRatesUseCase.getRates(currency, amount)
             },
-            success = {
-                for (i in it.rates!!) {
-                    Timber.d(i.name + " = " + i.value)
+            success = { ratesEntity ->
+                ratesMutableLiveData.postValue(Event(RatesEntityToUiMapper.map(ratesEntity)))
+                var s = ""
+                for (i in RatesEntityToUiMapper.map(ratesEntity).rates!!) {
+                    s += i.name + " "
                 }
+                text.postValue(s)
+                initialized = true
             },
             loading = {
                 loading.postValue(true)

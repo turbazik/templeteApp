@@ -1,3 +1,4 @@
 package com.example.templateapp.data.datasource.remote.exceptions
 
-class NetworkConnectionException : Exception()
+class NetworkConnectionException(override val message: String?, override val cause: Throwable?) :
+    Exception(message, cause)

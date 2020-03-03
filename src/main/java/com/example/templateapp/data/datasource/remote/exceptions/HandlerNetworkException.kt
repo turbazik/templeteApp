@@ -7,19 +7,30 @@ import java.net.UnknownHostException
 
 fun handleNetworkExceptions(ex: Exception): Exception {
     return when (ex) {
-        is IOException -> NetworkConnectionException()
-        is UnknownHostException -> NetworkConnectionException()
+        is IOException -> NetworkConnectionException(
+            message = "Интернет недоступен",
+            cause = Throwable("Проверьте соединение и\nповторите попытку")
+        )
+        is UnknownHostException -> NetworkConnectionException(
+            message = "Сервис временно\nнедоступен",
+            cause = Throwable("Попробуйте позже")
+        )
         is HttpException -> apiErrorFromCodeException(
             ex.code()
         )
-        else -> GenericNetworkException()
+        else -> GenericNetworkException(
+            message = "Сервис временно\nнедоступен",
+            cause = Throwable("Попробуйте позже")
+        )
     }
 }
 
 private fun apiErrorFromCodeException(code: Int): Exception {
     return if (code == 400) {
-        BadRequestException()
+        BadRequestException(message = "Сервис временно\nнедоступен",
+            cause = Throwable("Попробуйте позже"))
     } else {
-        GenericNetworkException()
+        GenericNetworkException(message = "Сервис временно\nнедоступен",
+            cause = Throwable("Попробуйте позже"))
     }
 }

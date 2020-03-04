@@ -5,14 +5,12 @@ import com.example.templateapp.core.BaseViewModel
 import com.example.templateapp.main.rates.domain.usecase.GetRatesUseCase
 import com.example.templateapp.main.rates.vm.mapper.RatesEntityToUiMapper
 import com.example.templateapp.main.rates.vm.model.RatesUi
-import com.example.templateapp.util.Event
 
 class MainViewModel(
     private val getRatesUseCase: GetRatesUseCase
 ) : BaseViewModel() {
 
-    val ratesMutableLiveData = MutableLiveData<Event<RatesUi>>()
-    val text = MutableLiveData<String>()
+    val ratesMutableLiveData = MutableLiveData<RatesUi>()
     var initialized = false
 
     fun fetchRates(currency: String, amount: Double) {
@@ -21,12 +19,7 @@ class MainViewModel(
                 getRatesUseCase.getRates(currency, amount)
             },
             success = { ratesEntity ->
-                ratesMutableLiveData.postValue(Event(RatesEntityToUiMapper.map(ratesEntity)))
-                var s = ""
-                for (i in RatesEntityToUiMapper.map(ratesEntity).rates!!) {
-                    s += i.name + " "
-                }
-                text.postValue(s)
+                ratesMutableLiveData.postValue(RatesEntityToUiMapper.map(ratesEntity))
                 initialized = true
             },
             loading = {

@@ -47,12 +47,9 @@ class MainActivity : BaseActivity() {
         if (!viewModel.initialized)
             viewModel.fetchRates("EUR", 100.0)
 
-        viewModel.ratesMutableLiveData.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let { ratesUi ->
-                if (ratesUi.rates != null)
-                    ratesAdapter.updateAll(ratesUi.rates!!)
-            }
-
+        viewModel.ratesMutableLiveData.observe(this, Observer { ratesUi ->
+            if (ratesUi.rates != null)
+                ratesAdapter.updateAll(ratesUi.rates!!)
         })
 
         viewModel.loading.observe(this, Observer { isLoading ->

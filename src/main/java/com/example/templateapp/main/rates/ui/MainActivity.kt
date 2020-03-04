@@ -12,6 +12,8 @@ import com.example.templateapp.databinding.ActivityMainBinding
 import com.example.templateapp.main.rates.ui.adapterlist.RatesAdapter
 import com.example.templateapp.main.rates.ui.adapterlist.RatesViewHolder
 import com.example.templateapp.main.rates.vm.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -45,7 +47,7 @@ class MainActivity : BaseActivity() {
         binding.ratesRv.layoutManager = LinearLayoutManager(this)
 
         if (!viewModel.initialized)
-            viewModel.fetchRates("EUR", 100.0)
+            viewModel.fetchRates("EUR", 0.0)
 
         viewModel.ratesMutableLiveData.observe(this, Observer { ratesUi ->
             if (ratesUi.rates != null)
@@ -67,5 +69,12 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+
+        viewModel.currency.value.observe(this, Observer { value ->
+            if (value != null && value.isNotEmpty())
+                viewModel.fetchRates("EUR", value.toDouble())
+        })
+
+
     }
 }

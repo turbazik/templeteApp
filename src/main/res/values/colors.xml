@@ -32,6 +32,8 @@
     <color name="textColorPrimary">@color/kaspi_black_grey</color>
     <color name="textColorPrimaryInverse">@color/kaspi_white</color>
 
+    <color name="textColorSubtitle1Gray">#99000000</color>
+
     <!-- QR Scanner -->
     <color name="viewfinder_border">@color/tomato</color>
 </resources>

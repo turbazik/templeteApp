@@ -38,4 +38,19 @@
         <item name="colorControlNormal">@color/tomato</item>
     </style>
 
+
+    <style name="AuthTheme.NumberEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/textColorSubtitle1Gray</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/cerulean</item>
+        <item name="colorControlNormal">@color/cerulean</item>
+        <item name="colorControlActivated">@color/cerulean</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
+
+
 </resources>

@@ -2,4 +2,5 @@
     <string name="app_name">TemplateApp</string>
     <string name="ok">Ok</string>
     <string name="action_cancel">Cancel</string>
+    <string name="currency">Количество валюты</string>
 </resources>

@@ -17,6 +17,34 @@
         android:layout_height="match_parent"
         tools:context=".main.rates.ui.MainActivity">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/currencyLayout"
+            style="@style/AuthTheme.NumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/currency"
+            app:errorEnabled="@{viewModel.currency.error.length == 0 || viewModel.currency.value.length != 0 ? viewModel.currency.isClearError() : true}"
+            app:hintTextAppearance="@style/CaptionLink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textInputLayout_error="@{viewModel.currency.error}">
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/currencyEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.currency.value}"
+                android:textAppearance="@style/Body1Style"
+                tools:text="Алматы" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ratesRv"
             android:layout_width="match_parent"
@@ -24,7 +52,7 @@
             android:focusable="false"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/currencyLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

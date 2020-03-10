@@ -2,7 +2,7 @@ package com.example.templateapp.core
 
 
 open class BaseResponse<T : Any> {
-    var success: Boolean? = null
+    var success: Boolean = true
     var data: T? = null
     var error: ErrorResponse? = null
 

@@ -2,5 +2,10 @@ package com.example.templateapp.data.datasource.remote.exceptions
 
 import java.lang.Exception
 
-class GenericNetworkException(override val message: String?, override val cause: Throwable?) :
-    Exception(message, cause)
+class GenericNetworkException :
+    Exception() {
+    override val message: String?
+        get() = "Сервис временно\nнедоступен"
+    override val cause: Throwable?
+        get() = Throwable("Попробуйте позже")
+}

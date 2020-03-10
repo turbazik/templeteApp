@@ -1,4 +1,9 @@
 package com.example.templateapp.data.datasource.remote.exceptions
 
-class BadRequestException(override val message: String?, override val cause: Throwable?) :
-    Exception(message, cause)
+class BadRequestException :
+    Exception() {
+    override val message: String?
+        get() = "Сервис временно\nнедоступен"
+    override val cause: Throwable?
+        get() = Throwable("Попробуйте позже")
+}

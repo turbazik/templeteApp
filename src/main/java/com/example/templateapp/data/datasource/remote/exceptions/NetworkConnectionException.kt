@@ -1,4 +1,9 @@
 package com.example.templateapp.data.datasource.remote.exceptions
 
-class NetworkConnectionException(override val message: String?, override val cause: Throwable?) :
-    Exception(message, cause)
+class NetworkConnectionException :
+    Exception() {
+    override val message: String?
+        get() = "Интернет недоступен"
+    override val cause: Throwable?
+        get() = Throwable("Проверьте соединение и\nповторите попытку")
+}

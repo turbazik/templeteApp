@@ -11,11 +11,11 @@ import com.example.templateapp.main.rates.domain.model.RatesEntity
 object ApiToEntityMapper : BaseMapper<BaseResponse<RatesRemoteData>, BaseResponse<RatesEntity>> {
     override fun map(type: BaseResponse<RatesRemoteData>?): BaseResponse<RatesEntity> {
         val response = BaseResponse<RatesEntity>()
-        response.success = type?.success
-        response.error = type?.error
+        response.success = type?.success!!
+        response.error = type.error
         response.data = RatesEntity(
-            base = type?.data?.base,
-            rates = type?.data?.rates
+            base = type.data?.base,
+            rates = type.data?.rates
         )
         return response
     }

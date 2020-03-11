@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert
 import com.example.templateapp.core.datatype.Result
+import com.example.templateapp.domain.utils.DomainRatesGenerator
 import com.example.templateapp.main.rates.domain.model.RatesEntity
 import com.example.templateapp.main.rates.domain.repository.RatesRepository
 import com.example.templateapp.main.rates.domain.usecase.GetRatesUseCase
@@ -45,43 +46,43 @@ class GetRatesUseCaseTest {
     @Test
     fun `verify result when repo mock return success state`() {
         runBlocking {
-            val result = Result.success(BaseResponse<RatesEntity>())
+            val response = BaseResponse<RatesEntity>()
+            val result = Result.success(response)
             given(ratesRepository.getRates("EUR")).willReturn(result)
 
-            val expectedResult = Result.success(BaseResponse<RatesEntity>())
+            val expectedResult = Result.success(response)
             val realResult = getRatesUseCase.getRates("EUR", 1.0)
 
             Assert.assertEquals(expectedResult, realResult)
         }
     }
-//
-//    @Test
-//    fun verifySortedAbvWhenRepoMockReturnUnsortedList() {
-//        runBlocking {
-//            val result = Result.success(DomainBeersGenerator.getUnsortedBeers())
-//            given(ratesRepository.getAllBeers()).willReturn(result)
-//
-//            val expectedResultBeers = Result.success(DomainBeersGenerator.getSortedBeers()).data
-//            val realResultBeers = getRatesUseCase.execute().data
-//
-//            realResultBeers?.beers?.forEachIndexed { index, currentRealResult ->
-//                val currentExpectedResult = expectedResultBeers?.beers?.get(index)?.abv
-//                val realResult = currentRealResult.abv
-//
-//                Assert.assertEquals(realResult, currentExpectedResult)
-//            }
-//        }
-//    }
-//
-//    @Test
-//    fun verifyUseCaseCallRepository() {
-//        runBlocking {
-//            given(ratesRepository.getAllBeers())
-//                .willReturn(Result.success(BeersEntity(listOf())))
-//
-//            getRatesUseCase.execute()
-//
-//            verify(ratesRepository, times(1)).getAllBeers()
-//        }
-//    }
+
+
+    @Test
+    fun `verify clean rates when repo mock return base rates`() {
+        runBlocking {
+            val result = Result.success(DomainRatesGenerator.getBaseRates())
+            given(ratesRepository.getRates("EUR")).willReturn(result)
+
+            val expectedResultBeers = Result.success(DomainRatesGenerator.getCleanRates()).data
+            val realResultBeers = getRatesUseCase.getRates("EUR", 2.0).data
+
+            realResultBeers?.data?.rates?.forEachIndexed { index, currentRealResult ->
+                val currentExpectedResult = expectedResultBeers?.data?.rates?.get(index)
+                Assert.assertEquals(currentRealResult, currentExpectedResult)
+            }
+        }
+    }
+
+    @Test
+    fun `verify usecase call repository`() {
+        runBlocking {
+            given(ratesRepository.getRates("EUR"))
+                .willReturn(Result.success(BaseResponse()))
+
+            getRatesUseCase.getRates("EUR", 1.0)
+
+            verify(ratesRepository, times(1)).getRates("EUR")
+        }
+    }
 }

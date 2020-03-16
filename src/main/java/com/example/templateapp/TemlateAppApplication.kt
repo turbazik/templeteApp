@@ -2,9 +2,10 @@ package com.example.templateapp
 
 import android.app.Application
 import com.example.templateapp.core.di.appModule
-import com.example.templateapp.data.di.ratesDataModule
-import com.example.templateapp.data.di.retrofitModule
-import com.example.templateapp.main.di.ratesModule
+import com.example.templateapp.core.di.retrofitModule
+import com.example.templateapp.features.rates.data.datasource.di.ratesDataModule
+import com.example.templateapp.features.rates.domain.di.ratesDomainModule
+import com.example.templateapp.features.rates.presentation.di.ratesPresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,10 +28,11 @@ class TemplateAppApplication : Application() {
             androidContext(this@TemplateAppApplication)
             modules(
                 listOf(
+                    appModule,
                     retrofitModule,
-                    ratesModule,
                     ratesDataModule,
-                    appModule
+                    ratesDomainModule,
+                    ratesPresentationModule
                 )
             )
         }

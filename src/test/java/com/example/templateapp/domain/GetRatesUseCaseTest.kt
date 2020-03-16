@@ -4,22 +4,25 @@ import com.example.templateapp.core.BaseResponse
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.runBlocking
-import com.example.templateapp.data.datasource.remote.exceptions.NetworkConnectionException
+import com.example.templateapp.features.rates.data.datasource.remote.exceptions.NetworkConnectionException
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert
 import com.example.templateapp.core.datatype.Result
 import com.example.templateapp.domain.utils.DomainRatesGenerator
-import com.example.templateapp.main.rates.domain.model.RatesEntity
-import com.example.templateapp.main.rates.domain.repository.RatesRepository
-import com.example.templateapp.main.rates.domain.usecase.GetRatesUseCase
+import com.example.templateapp.features.rates.domain.model.RatesEntity
+import com.example.templateapp.features.rates.domain.repository.RatesRepository
+import com.example.templateapp.features.rates.domain.usecase.GetRatesUseCase
 import org.junit.Test
 import java.lang.Exception
 
 class GetRatesUseCaseTest {
 
     private val ratesRepository: RatesRepository = mock()
-    private val getRatesUseCase = GetRatesUseCase(ratesRepository)
+    private val getRatesUseCase =
+        GetRatesUseCase(
+            ratesRepository
+        )
 
     @Test
     fun `verify business error when repo mock return networkError`() {

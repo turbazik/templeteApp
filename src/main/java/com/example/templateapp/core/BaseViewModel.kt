@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.templateapp.core.datatype.ResultType
-import com.example.templateapp.data.datasource.remote.exceptions.NetworkConnectionException
+import com.example.templateapp.features.rates.data.datasource.remote.exceptions.NetworkConnectionException
 import com.example.templateapp.util.Event
 import com.example.templateapp.util.widgets.dialog.type.CustomDialog
 import com.example.templateapp.core.datatype.Result
-import com.example.templateapp.data.datasource.remote.exceptions.GenericNetworkException
+import com.example.templateapp.features.rates.data.datasource.remote.exceptions.GenericNetworkException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

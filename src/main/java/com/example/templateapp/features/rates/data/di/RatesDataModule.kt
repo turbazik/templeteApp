@@ -1,4 +1,4 @@
-package com.example.templateapp.features.rates.data.datasource.di
+package com.example.templateapp.features.rates.data.di
 
 import androidx.room.Room
 import com.example.templateapp.features.rates.data.datasource.local.RatesLocalDataSource
